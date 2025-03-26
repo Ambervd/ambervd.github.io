@@ -1,12 +1,54 @@
+import pandas as pd
+
+# Load the Excel file (Make sure 'data.xlsx' is in the same directory)
+excel_file = "data.xlsx"
+df = pd.read_excel(excel_file)
+
+# Convert to an HTML table with some basic styling
+table_html = df.to_html(index=False, classes="styled-table")
+
+# HTML template
+html_content = f"""
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>Excel Data Table</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            text-align: center;
+        }}
+        .styled-table {{
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 18px;
+            border: 1px solid #ddd;
+        }}
+        .styled-table th, .styled-table td {{
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }}
+        .styled-table th {{
+            background-color: #f4b400;
+            color: white;
+        }}
+        .styled-table tr:nth-child(even) {{
+            background-color: #f9f9f9;
+        }}
+    </style>
 </head>
 <body>
-    <h1>Welcome to My GitHub Page</h1>
-    <p>This is a test page.</p>
+    <h1>Excel File Display</h1>
+    {table_html}
 </body>
 </html>
+"""
+
+# Save as index.html
+with open("index.html", "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print("index.html created! Upload it along with 'data.xlsx' to your GitHub Pages repo.")
